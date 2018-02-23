@@ -2,6 +2,7 @@ package sample;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 public class MainController {
     @FXML
@@ -22,65 +23,81 @@ public class MainController {
     Button buttonC2;
     @FXML
     Button buttonC3;
+    @FXML
+    Button buttonConnect;
+    @FXML
+    Button buttonRestart;
 
     private String turn = "player1";
     private Boolean gameLocked = false;
 
     @FXML
     private void buttonA1Clicked() {
-        click(turn, buttonA1);
-        changeTurn();
+        if (click(turn, buttonA1))
+            changeTurn();
     }
 
     @FXML
     private void buttonA2Clicked() {
-        click(turn, buttonA2);
-        changeTurn();
+        if (click(turn, buttonA2))
+            changeTurn();
     }
 
     @FXML
     private void buttonA3Clicked() {
-        click(turn, buttonA3);
-        changeTurn();
+        if (click(turn, buttonA3))
+            changeTurn();
     }
 
     @FXML
     private void buttonB1Clicked() {
-        click(turn, buttonB1);
-        changeTurn();
+        if (click(turn, buttonB1))
+            changeTurn();
     }
 
     @FXML
     private void buttonB2Clicked() {
-        click(turn, buttonB2);
-        changeTurn();
+        if (click(turn, buttonB2))
+            changeTurn();
     }
 
     @FXML
     private void buttonB3Clicked() {
-        click(turn, buttonB3);
-        changeTurn();
+        if (click(turn, buttonB3))
+            changeTurn();
     }
 
     @FXML
     private void buttonC1Clicked() {
-        click(turn, buttonC1);
-        changeTurn();
+        if (click(turn, buttonC1))
+            changeTurn();
     }
 
     @FXML
     private void buttonC2Clicked() {
-        click(turn, buttonC2);
-        changeTurn();
+        if (click(turn, buttonC2))
+            changeTurn();
     }
 
     @FXML
     private void buttonC3Clicked() {
-        click(turn, buttonC3);
-        changeTurn();
+        if (click(turn, buttonC3))
+            changeTurn();
     }
 
-    private void click(String turn, Button button) {
+    @FXML
+    private void buttonConnectClicked() {
+        throw new NotImplementedException();
+    }
+
+    @FXML
+    private void buttonRestartClicked() {
+        setAllButtonsText("");
+        turn = "player1";
+        gameLocked = false;
+    }
+
+    private boolean click(String turn, Button button) {
         if (gameLocked == false && button.getText().equals("")) {
             if (turn.equals("player1")) {
                 button.setText("X");
@@ -88,7 +105,9 @@ public class MainController {
                 button.setText("O");
             }
             checkWinner();
+            return true;
         }
+        return false;
     }
 
     private void changeTurn() {
@@ -149,4 +168,19 @@ public class MainController {
 
         gameLocked = true;
     }
+
+    private void setAllButtonsText(String textToSet) {
+        buttonA1.setText(textToSet);
+        buttonA2.setText(textToSet);
+        buttonA3.setText(textToSet);
+
+        buttonB1.setText(textToSet);
+        buttonB2.setText(textToSet);
+        buttonB3.setText(textToSet);
+
+        buttonC1.setText(textToSet);
+        buttonC2.setText(textToSet);
+        buttonC3.setText(textToSet);
+    }
+
 }
