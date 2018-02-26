@@ -2,7 +2,14 @@ package sample;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+import javafx.scene.control.TextField;
+
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.ServerSocket;
+import java.net.Socket;
 
 public class MainController {
     @FXML
@@ -27,67 +34,101 @@ public class MainController {
     Button buttonConnect;
     @FXML
     Button buttonRestart;
+    @FXML
+    Button buttonStartServer;
+    @FXML
+    TextField textClientIP;
+    @FXML
+    TextField textServerPort;
 
     private String turn = "player1";
     private Boolean gameLocked = false;
+    private GameServer gameServer;
+    private Socket clientSocket;
 
     @FXML
     private void buttonA1Clicked() {
-        if (click(turn, buttonA1))
+        if (click(turn, buttonA1)) {
             changeTurn();
+            sendMessage("A1");
+        }
     }
 
     @FXML
     private void buttonA2Clicked() {
-        if (click(turn, buttonA2))
+        if (click(turn, buttonA2)) {
             changeTurn();
+            sendMessage("A2");
+        }
+
     }
 
     @FXML
     private void buttonA3Clicked() {
-        if (click(turn, buttonA3))
+        if (click(turn, buttonA3)) {
             changeTurn();
+            sendMessage("A3");
+        }
     }
 
     @FXML
     private void buttonB1Clicked() {
-        if (click(turn, buttonB1))
+        if (click(turn, buttonB1)) {
             changeTurn();
+            sendMessage("B1");
+        }
     }
 
     @FXML
     private void buttonB2Clicked() {
-        if (click(turn, buttonB2))
+        if (click(turn, buttonB2)) {
             changeTurn();
+            sendMessage("B2");
+        }
     }
 
     @FXML
     private void buttonB3Clicked() {
-        if (click(turn, buttonB3))
+        if (click(turn, buttonB3)) {
             changeTurn();
+            sendMessage("B3");
+        }
     }
 
     @FXML
     private void buttonC1Clicked() {
-        if (click(turn, buttonC1))
+        if (click(turn, buttonC1)) {
             changeTurn();
+            sendMessage("C1");
+        }
     }
 
     @FXML
     private void buttonC2Clicked() {
-        if (click(turn, buttonC2))
+        if (click(turn, buttonC2)) {
             changeTurn();
+            sendMessage("C2");
+        }
     }
 
     @FXML
     private void buttonC3Clicked() {
-        if (click(turn, buttonC3))
+        if (click(turn, buttonC3)) {
             changeTurn();
+            sendMessage("C3");
+        }
     }
 
     @FXML
     private void buttonConnectClicked() {
-        throw new NotImplementedException();
+        //todo change
+        String[] serverData = textClientIP.getText().split(":");
+
+        try {
+            clientSocket = new Socket(serverData[0], Integer.valueOf(serverData[1]));
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
     }
 
     @FXML
@@ -95,6 +136,33 @@ public class MainController {
         setAllButtonsText("");
         turn = "player1";
         gameLocked = false;
+    }
+
+    @FXML
+    private void buttonStartServerClicked() {
+        startServer();
+    }
+
+    private void sendMessage(String sentence) {
+        try {
+            DataOutputStream outputStream = new DataOutputStream(clientSocket.getOutputStream());
+            outputStream.writeBytes(sentence);
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+
+    private void startServer() {
+        int port;
+        try {
+            port = Integer.valueOf(textServerPort.getText());
+        } catch (Exception ex) {
+            System.out.println("Not a valid port!");
+            return;
+        }
+
+        gameServer = new GameServer(port);
+        gameServer.start();
     }
 
     private boolean click(String turn, Button button) {

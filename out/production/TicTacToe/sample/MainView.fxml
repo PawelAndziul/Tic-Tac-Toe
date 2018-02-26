@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane prefHeight="400.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.MainController">
+<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.MainController">
    <children>
       <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <center>
@@ -73,11 +75,20 @@
             </GridPane>
          </center>
          <bottom>
-            <ButtonBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <ButtonBar prefHeight="40.0" BorderPane.alignment="CENTER">
               <buttons>
-                <Button fx:id="buttonConnect" mnemonicParsing="false" onAction="#buttonRestartClicked" text="Connect" />
+                <Button fx:id="buttonConnect" mnemonicParsing="false" onAction="#buttonConnectClicked" text="Connect" />
+                  <TextField fx:id="textClientIP" promptText="ip:port" />
                   <Button fx:id="buttonRestart" mnemonicParsing="false" onAction="#buttonRestartClicked" text="Restart" />
+                  <Button fx:id="buttonStartServer" mnemonicParsing="false" onAction="#buttonStartServerClicked" text="Start server" />
+                  <TextField fx:id="textServerPort" promptText="port" />
               </buttons>
+               <BorderPane.margin>
+                  <Insets />
+               </BorderPane.margin>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
             </ButtonBar>
          </bottom>
       </BorderPane>
