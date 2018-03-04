@@ -35,14 +35,16 @@ public class GameServer extends Thread {
 
         try {
             while (!client.isClosed()) {
-                BufferedReader reader = new BufferedReader(new InputStreamReader(client.getInputStream()));
-                String sentence = reader.readLine();
-                System.out.println("Client: " + sentence);
-
+                System.out.println("Client: " + receiveMessage(client));
                 wait(200);
             }
         } catch (Exception ex) {
             System.out.println("Client disconnected");
         }
+    }
+
+    private String receiveMessage(Socket client) throws Exception {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(client.getInputStream()));
+        return reader.readLine();
     }
 }
